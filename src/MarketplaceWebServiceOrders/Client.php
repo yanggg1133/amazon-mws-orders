@@ -542,7 +542,7 @@ class MarketplaceWebServiceOrders_Client implements MarketplaceWebServiceOrders_
             $retries = 0;
             for (;;) {
                 $response = $this->_httpPost($parameters);
-                $status = $response['Status'];
+                $status = intval($response['Status']);
                 if ($status === 200) {
                     return array('ResponseBody' => $response['ResponseBody'],
                       'ResponseHeaderMetadata' => $response['ResponseHeaderMetadata']);
@@ -688,7 +688,7 @@ class MarketplaceWebServiceOrders_Client implements MarketplaceWebServiceOrders_
             if($responseStatus != null && 
                     $this->_httpHeadersHaveContent($headers)){
                 
-                $responseHeaderMetadata = $this->_extractResponseHeaderMetadata(headers);
+                $responseHeaderMetadata = $this->_extractResponseHeaderMetadata($headers);
                 //The body will be the next item in the responseComponents array
                 $body = $responseComponents[++$count];
             }
